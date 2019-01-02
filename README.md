@@ -9,6 +9,7 @@
 Retrieves & observes Kubernetes Pod resource (CPU, memory) utilisation.
 
 * [Use case](#use-case)
+* [Requirements](#requirements)
 * [Usage](#usage)
   * [Using Preoom with Lightship to gracefully shutdown service before the OOM termination](#using-preoom-with-lightship-to-gracefully-shutdown-service-before-the-oom-termination)
 * [Related projects](#related-projects)
@@ -29,6 +30,10 @@ Exit Code:    137
 The problem is that [Kubernetes OOM termination is performed using SIGKILL](https://github.com/kubernetes/kubernetes/issues/40157), i.e. Pod is not given time for graceful shutdown.
 
 Preoom allows to set up a regular check for memory usage and gracefully shutdown the Kubernetes Pod before the OOM termination occurs (see [Using Preoom with Lightship to gracefully shutdown service before the OOM termination](#using-preoom-with-lightship-to-gracefully-shutdown-service-before-the-oom-termination)).
+
+## Requirements
+
+[Kubernetes Metrics Server](https://github.com/kubernetes-incubator/metrics-server) must be available in the cluster and the metrics.k8s.io API must be accessible by the anonymous service account.
 
 ## Usage
 
