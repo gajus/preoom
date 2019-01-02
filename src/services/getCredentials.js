@@ -1,6 +1,6 @@
 // @flow
 
-/* eslint-disable process-env */
+/* eslint-disable no-process-env */
 
 import fs from 'fs';
 
@@ -9,18 +9,18 @@ type CredentialsType = {|
   +podNamespace: string,
   +serviceAccountToken: string,
   +serviceCertificateAuthority: string,
-  +serviceUrl: string,
+  +serviceUrl: string
 |};
 
 const read = (filePath: string): string | null => {
   try {
-    return fs.readFileSync(filePath, 'utf8')
+    return fs.readFileSync(filePath, 'utf8');
   } catch (error) {
     return null;
   }
 };
 
-export default () => {
+export default (): CredentialsType => {
   const kubernetesServiceHost = process.env.KUBERNETES_SERVICE_HOST || null;
   const kubernetesServicePort = process.env.KUBERNETES_PORT_443_TCP_PORT || null;
   const podName = process.env.HOSTNAME || null;
@@ -56,10 +56,10 @@ export default () => {
   const serviceUrl = 'https://' + kubernetesServiceHost + ':' + kubernetesServicePort;
 
   return {
-    podName: 'showtime-api-56568dd94-tz8df',
+    podName,
     podNamespace,
     serviceAccountToken,
     serviceCertificateAuthority,
-    serviceUrl,
+    serviceUrl
   };
 };
