@@ -39,87 +39,90 @@ Preoom allows to set up a regular check for memory usage and gracefully shutdown
 
 ```js
 import {
-  createResourceObserver
+  createResourceObserver,
+  isKubernetesCredentialsPresent
 } from 'preoom';
 
 const main = async () => {
   const resourceObserver = createResourceObserver();
 
-  console.log(await resourceObserver.getPodResourceSpecification());
+  if (isKubernetesCredentialsPresent()) {
+    console.log(await resourceObserver.getPodResourceSpecification());
 
-  // {
-  //   containers: [
-  //     {
-  //       name: 'authentication-proxy',
-  //       resources: {
-  //         limits: {
-  //           cpu: '500m',
-  //           memory: 536870912
-  //         },
-  //         requests: {
-  //           cpu: '250m',
-  //           memory: 268435456
-  //         }
-  //       }
-  //     },
-  //     {
-  //       name: 'monitoring-proxy',
-  //       resources: {
-  //         limits: {
-  //           cpu: '1',
-  //           memory: 536870912
-  //         },
-  //         requests: {
-  //           cpu: '500m',
-  //           memory: 268435456
-  //         }
-  //       }
-  //     },
-  //     {
-  //       name: 'showtime-api',
-  //       resources: {
-  //         limits: {
-  //           cpu: '2',
-  //           memory: 2147483648
-  //         },
-  //         requests: {
-  //           cpu: '1',
-  //           memory: 1073741824
-  //         }
-  //       }
-  //     }
-  //   ],
-  //   name: 'showtime-api-56568dd94-tz8df'
-  // }
+    // {
+    //   containers: [
+    //     {
+    //       name: 'authentication-proxy',
+    //       resources: {
+    //         limits: {
+    //           cpu: '500m',
+    //           memory: 536870912
+    //         },
+    //         requests: {
+    //           cpu: '250m',
+    //           memory: 268435456
+    //         }
+    //       }
+    //     },
+    //     {
+    //       name: 'monitoring-proxy',
+    //       resources: {
+    //         limits: {
+    //           cpu: '1',
+    //           memory: 536870912
+    //         },
+    //         requests: {
+    //           cpu: '500m',
+    //           memory: 268435456
+    //         }
+    //       }
+    //     },
+    //     {
+    //       name: 'showtime-api',
+    //       resources: {
+    //         limits: {
+    //           cpu: '2',
+    //           memory: 2147483648
+    //         },
+    //         requests: {
+    //           cpu: '1',
+    //           memory: 1073741824
+    //         }
+    //       }
+    //     }
+    //   ],
+    //   name: 'showtime-api-56568dd94-tz8df'
+    // }
 
-  console.log(await resourceObserver.getPodResourceUsage());
+    console.log(await resourceObserver.getPodResourceUsage());
 
-  // {
-  //   containers: [
-  //     {
-  //       name: 'authentication-proxy',
-  //       usage: {
-  //         cpu: '0',
-  //         memory: 101044224
-  //       }
-  //     },
-  //     {
-  //       name: 'monitoring-proxy',
-  //       usage: {
-  //         cpu: '1m',
-  //         memory: 42151936
-  //       }
-  //     },
-  //     {
-  //       name: 'showtime-api',
-  //       usage: {
-  //         cpu: '0',
-  //         memory: 1349738496
-  //       }
-  //     }
-  //   ],
-  //   name: 'showtime-api-56568dd94-tz8df'
-  // }
+    // {
+    //   containers: [
+    //     {
+    //       name: 'authentication-proxy',
+    //       usage: {
+    //         cpu: '0',
+    //         memory: 101044224
+    //       }
+    //     },
+    //     {
+    //       name: 'monitoring-proxy',
+    //       usage: {
+    //         cpu: '1m',
+    //         memory: 42151936
+    //       }
+    //     },
+    //     {
+    //       name: 'showtime-api',
+    //       usage: {
+    //         cpu: '0',
+    //         memory: 1349738496
+    //       }
+    //     }
+    //   ],
+    //   name: 'showtime-api-56568dd94-tz8df'
+    // }
+  }
 };
 
 main();
@@ -135,7 +138,8 @@ import {
   createLightship
 } from 'lightship';
 import {
-  createResourceObserver
+  createResourceObserver,
+  isKubernetesCredentialsPresent
 } from 'preoom';
 
 const MAXIMUM_MEMORY_USAGE = 0.95;
@@ -143,25 +147,27 @@ const MAXIMUM_MEMORY_USAGE = 0.95;
 const main = async () => {
   const lightship = createLightship();
 
-  const resourceObserver = createResourceObserver();
+  if (isKubernetesCredentialsPresent()) {
+    const resourceObserver = createResourceObserver();
 
-  resourceObserver.observe((podResourceSpecification, podResourceUsage) => {
-    for (const containerResourceSpecification of podResourceSpecification.containers) {
-      if (containerResourceSpecification.resources.limits && containerResourceSpecification.resources.limits.memory) {
-        const containerResourceUsage = podResourceUsage.containers.find((container) => {
-          return container.name === containerResourceSpecification.name;
-        });
+    resourceObserver.observe((podResourceSpecification, podResourceUsage) => {
+      for (const containerResourceSpecification of podResourceSpecification.containers) {
+        if (containerResourceSpecification.resources.limits && containerResourceSpecification.resources.limits.memory) {
+          const containerResourceUsage = podResourceUsage.containers.find((container) => {
+            return container.name === containerResourceSpecification.name;
+          });
 
-        if (!containerResourceUsage) {
-          throw new Error('Unexpected state.');
-        }
+          if (!containerResourceUsage) {
+            throw new Error('Unexpected state.');
+          }
 
-        if (containerResourceUsage.usage.memory / containerResourceSpecification.resources.limits.memory > MAXIMUM_MEMORY_USAGE) {
-          lightship.shutdown();
+          if (containerResourceUsage.usage.memory / containerResourceSpecification.resources.limits.memory > MAXIMUM_MEMORY_USAGE) {
+            lightship.shutdown();
+          }
         }
       }
-    }
-  }, 5 * 1000);
+    }, 5 * 1000);
+  }
 
   lightship.signalReady();
 }

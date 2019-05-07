@@ -2,7 +2,9 @@
 
 /* eslint-disable no-process-env */
 
-import fs from 'fs';
+import {
+  read
+} from '../utilities';
 
 type CredentialsType = {|
   +podName: string,
@@ -11,14 +13,6 @@ type CredentialsType = {|
   +serviceCertificateAuthority: string,
   +serviceUrl: string
 |};
-
-const read = (filePath: string): string | null => {
-  try {
-    return fs.readFileSync(filePath, 'utf8');
-  } catch (error) {
-    return null;
-  }
-};
 
 export default (): CredentialsType => {
   const kubernetesServiceHost = process.env.KUBERNETES_SERVICE_HOST || null;

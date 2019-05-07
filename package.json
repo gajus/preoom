@@ -10,28 +10,28 @@
     ]
   },
   "dependencies": {
-    "bytes-iec": "^3.0.1",
-    "got": "^9.5.0",
-    "roarr": "^2.12.1"
+    "bytes-iec": "^3.1.0",
+    "got": "^9.6.0",
+    "roarr": "^2.13.0"
   },
   "description": "Retrieves & observes Kubernetes Pod resource (CPU, memory) utilisation.",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
-    "@babel/plugin-transform-flow-strip-types": "^7.2.3",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/register": "^7.0.0",
-    "ava": "^1.0.1",
-    "babel-plugin-istanbul": "^5.1.0",
-    "coveralls": "^3.0.2",
-    "delay": "^4.1.0",
-    "eslint": "^5.11.1",
-    "eslint-config-canonical": "^15.1.1",
-    "flow-bin": "^0.89.0",
-    "flow-copy-source": "^2.0.2",
-    "nyc": "^13.1.0",
-    "semantic-release": "^15.13.2"
+    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "ava": "^1.4.1",
+    "babel-plugin-istanbul": "^5.1.4",
+    "coveralls": "^3.0.3",
+    "delay": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-canonical": "^17.0.1",
+    "flow-bin": "^0.98.1",
+    "flow-copy-source": "^2.0.4",
+    "nyc": "^14.1.0",
+    "semantic-release": "^15.13.3"
   },
   "engines": {
     "node": ">6"
