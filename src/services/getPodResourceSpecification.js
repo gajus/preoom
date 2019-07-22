@@ -8,8 +8,6 @@ import type {
   HttpClientType
 } from '../types';
 
-require('util').inspect.defaultOptions.depth = null;
-
 export default async (httpClient: HttpClientType, serviceUrl: string, podNamespace: string, podName: string): Promise<PodResourceSpecificationType> => {
   const podSpecification = await httpClient(serviceUrl + '/api/v1/namespaces/' + podNamespace + '/pods/' + podName);
 
