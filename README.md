@@ -55,11 +55,11 @@ const main = async () => {
     //       name: 'authentication-proxy',
     //       resources: {
     //         limits: {
-    //           cpu: '500m',
+    //           cpu: 500',
     //           memory: 536870912
     //         },
     //         requests: {
-    //           cpu: '250m',
+    //           cpu: 250,
     //           memory: 268435456
     //         }
     //       }
@@ -68,11 +68,11 @@ const main = async () => {
     //       name: 'monitoring-proxy',
     //       resources: {
     //         limits: {
-    //           cpu: '1',
+    //           cpu: 1000',
     //           memory: 536870912
     //         },
     //         requests: {
-    //           cpu: '500m',
+    //           cpu: 500,
     //           memory: 268435456
     //         }
     //       }
@@ -81,11 +81,11 @@ const main = async () => {
     //       name: 'showtime-api',
     //       resources: {
     //         limits: {
-    //           cpu: '2',
+    //           cpu: 2000,
     //           memory: 2147483648
     //         },
     //         requests: {
-    //           cpu: '1',
+    //           cpu: 1000,
     //           memory: 1073741824
     //         }
     //       }
@@ -101,21 +101,21 @@ const main = async () => {
     //     {
     //       name: 'authentication-proxy',
     //       usage: {
-    //         cpu: '0',
+    //         cpu: 0,
     //         memory: 101044224
     //       }
     //     },
     //     {
     //       name: 'monitoring-proxy',
     //       usage: {
-    //         cpu: '1m',
+    //         cpu: 1000,
     //         memory: 42151936
     //       }
     //     },
     //     {
     //       name: 'showtime-api',
     //       usage: {
-    //         cpu: '0',
+    //         cpu: 0,
     //         memory: 1349738496
     //       }
     //     }
@@ -175,6 +175,11 @@ const main = async () => {
 main();
 
 ```
+
+## Units
+
+* CPUs are reported as milliCPU units (1000 = 1 CPU).
+* Memory is reported in bytes.
 
 ## Related projects
 

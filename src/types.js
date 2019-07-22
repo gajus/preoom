@@ -8,8 +8,8 @@ export type HttpClientType = (url: string) => Promise<Object>;
 type ContainerResourceUsageType = {|
   +name: string,
   +usage: {|
-    +cpu: string,
-    +memory: string
+    +cpu: number,
+    +memory: number
   |}
 |};
 
@@ -19,8 +19,8 @@ export type PodResourceUsageType = {|
 |};
 
 type ResourceType = {|
-  +cpu: string | null,
-  +memory: string | null
+  +cpu: number | null,
+  +memory: number | null
 |};
 
 type ContainerResourceSpecificationType = {|

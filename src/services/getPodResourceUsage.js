@@ -1,7 +1,8 @@
 // @flow
 
 import {
-  parseBytes
+  parseBytes,
+  parseCpu
 } from '../utilities';
 import type {
   PodResourceUsageType,
@@ -17,7 +18,7 @@ export default async (httpClient: HttpClientType, serviceUrl: string, podNamespa
     containers.push({
       name: container.name,
       usage: {
-        cpu: container.usage.cpu,
+        cpu: parseCpu(container.usage.cpu),
         memory: parseBytes(container.usage.memory)
       }
     });
