@@ -5,33 +5,42 @@
     "url": "http://gajus.com"
   },
   "ava": {
+    "files": [
+      "test/**/*"
+    ],
+    "helpers": [
+      "test/helpers/**/*"
+    ],
     "require": [
       "@babel/register"
+    ],
+    "sources": [
+      "src/**/*"
     ]
   },
   "dependencies": {
     "bytes-iec": "^3.1.0",
     "got": "^9.6.0",
-    "roarr": "^2.13.0"
+    "roarr": "^2.13.2"
   },
   "description": "Retrieves & observes Kubernetes Pod resource (CPU, memory) utilisation.",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/node": "^7.2.2",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
     "@babel/plugin-transform-flow-strip-types": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
-    "ava": "^1.4.1",
+    "ava": "^2.1.0",
     "babel-plugin-istanbul": "^5.1.4",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.4",
     "delay": "^4.2.0",
     "eslint": "^5.16.0",
-    "eslint-config-canonical": "^17.0.1",
-    "flow-bin": "^0.98.1",
-    "flow-copy-source": "^2.0.4",
-    "nyc": "^14.1.0",
-    "semantic-release": "^15.13.3"
+    "eslint-config-canonical": "^17.1.0",
+    "flow-bin": "^0.100.0",
+    "flow-copy-source": "^2.0.6",
+    "nyc": "^14.1.1",
+    "semantic-release": "^15.13.12"
   },
   "engines": {
     "node": ">6"
