@@ -3,7 +3,7 @@
 /* eslint-disable no-process-env */
 
 import {
-  read
+  read,
 } from '../utilities';
 
 type CredentialsType = {|
@@ -11,7 +11,7 @@ type CredentialsType = {|
   +podNamespace: string,
   +serviceAccountToken: string,
   +serviceCertificateAuthority: string,
-  +serviceUrl: string
+  +serviceUrl: string,
 |};
 
 export default (): CredentialsType => {
@@ -54,6 +54,6 @@ export default (): CredentialsType => {
     podNamespace,
     serviceAccountToken,
     serviceCertificateAuthority,
-    serviceUrl
+    serviceUrl,
   };
 };

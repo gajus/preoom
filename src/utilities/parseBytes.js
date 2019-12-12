@@ -1,7 +1,7 @@
 // @flow
 
 import {
-  parse as parseBytes
+  parse as parseBytes,
 } from 'bytes-iec';
 
 export default (iecBytes: string) => {

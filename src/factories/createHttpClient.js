@@ -2,7 +2,7 @@
 
 import got from 'got';
 import type {
-  HttpClientType
+  HttpClientType,
 } from '../types';
 
 export default (certificateAuthority: string, serviceAccountToken: string): HttpClientType => {
@@ -10,14 +10,14 @@ export default (certificateAuthority: string, serviceAccountToken: string): Http
     const response = await got(url, {
       agent: false,
       ca: [
-        certificateAuthority
+        certificateAuthority,
       ],
       headers: {
-        Authorization: 'Bearer ' + serviceAccountToken
+        Authorization: 'Bearer ' + serviceAccountToken,
       },
       json: true,
       rejectUnauthorized: true,
-      requestCert: true
+      requestCert: true,
     });
 
     return response.body;

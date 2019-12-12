@@ -3,39 +3,39 @@
 import {
   getCredentials,
   getPodResourceSpecification,
-  getPodResourceUsage as getUnboundPodResourceUsage
+  getPodResourceUsage as getUnboundPodResourceUsage,
 } from '../services';
 import Logger from '../Logger';
 import type {
-  IntervalCallbackType
+  IntervalCallbackType,
 } from '../types';
 import createHttpClient from './createHttpClient';
 
 const log = Logger.child({
-  namespace: 'createResourceObserver'
+  namespace: 'createResourceObserver',
 });
 
 const createContext = async () => {
   const credentials = await getCredentials();
   const httpClient = await createHttpClient(
     credentials.serviceCertificateAuthority,
-    credentials.serviceAccountToken
+    credentials.serviceAccountToken,
   );
   const podResourceSpecification = await getPodResourceSpecification(
     httpClient,
     credentials.serviceUrl,
     credentials.podNamespace,
-    credentials.podName
+    credentials.podName,
   );
 
   log.debug({
-    podResourceSpecification
+    podResourceSpecification,
   }, 'pod resource specification');
 
   return {
     credentials,
     httpClient,
-    podResourceSpecification
+    podResourceSpecification,
   };
 };
 
@@ -49,7 +49,7 @@ export default () => {
       context.httpClient,
       context.credentials.serviceUrl,
       context.credentials.podNamespace,
-      context.credentials.podName
+      context.credentials.podName,
     );
 
     return podResourceUsage;
@@ -73,7 +73,7 @@ export default () => {
 
         log.debug({
           podResourceSpecification,
-          podResourceUsage
+          podResourceUsage,
         }, 'observed resource usage');
 
         // eslint-disable-next-line callback-return
@@ -92,6 +92,6 @@ export default () => {
       return () => {
         clearTimeout(timeout);
       };
-    }
+    },
   };
 };

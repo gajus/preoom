@@ -2,11 +2,11 @@
 
 import {
   parseBytes,
-  parseCpu
+  parseCpu,
 } from '../utilities';
 import type {
   PodResourceUsageType,
-  HttpClientType
+  HttpClientType,
 } from '../types';
 
 export default async (httpClient: HttpClientType, serviceUrl: string, podNamespace: string, podName: string): Promise<PodResourceUsageType> => {
@@ -19,13 +19,13 @@ export default async (httpClient: HttpClientType, serviceUrl: string, podNamespa
       name: container.name,
       usage: {
         cpu: parseCpu(container.usage.cpu),
-        memory: parseBytes(container.usage.memory)
-      }
+        memory: parseBytes(container.usage.memory),
+      },
     });
   }
 
   return {
     containers,
-    name: podName
+    name: podName,
   };
 };

@@ -1,8 +1,8 @@
 // @flow
 
 export {
-  createResourceObserver
+  createResourceObserver,
 } from './factories';
 export {
-  isKubernetesCredentialsPresent
+  isKubernetesCredentialsPresent,
 } from './utilities';
