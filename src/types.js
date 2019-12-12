@@ -36,4 +36,8 @@ export type PodResourceSpecificationType = {|
   +name: string,
 |};
 
-export type IntervalCallbackType = (podResourceSpecification: PodResourceSpecificationType, podResourceUsage: PodResourceUsageType) => void;
+export type IntervalCallbackType = (
+  error: Error | null,
+  podResourceSpecification: PodResourceSpecificationType | null,
+  podResourceUsage: PodResourceUsageType | null
+) => void;

@@ -150,19 +150,23 @@ const main = async () => {
   if (isKubernetesCredentialsPresent()) {
     const resourceObserver = createResourceObserver();
 
-    resourceObserver.observe((podResourceSpecification, podResourceUsage) => {
-      for (const containerResourceSpecification of podResourceSpecification.containers) {
-        if (containerResourceSpecification.resources.limits && containerResourceSpecification.resources.limits.memory) {
-          const containerResourceUsage = podResourceUsage.containers.find((container) => {
-            return container.name === containerResourceSpecification.name;
-          });
+    resourceObserver.observe((error, podResourceSpecification, podResourceUsage) => {
+      if (error) {
+        // Handle error.
+      } else {
+        for (const containerResourceSpecification of podResourceSpecification.containers) {
+          if (containerResourceSpecification.resources.limits && containerResourceSpecification.resources.limits.memory) {
+            const containerResourceUsage = podResourceUsage.containers.find((container) => {
+              return container.name === containerResourceSpecification.name;
+            });
 
-          if (!containerResourceUsage) {
-            throw new Error('Unexpected state.');
-          }
+            if (!containerResourceUsage) {
+              throw new Error('Unexpected state.');
+            }
 
-          if (containerResourceUsage.usage.memory / containerResourceSpecification.resources.limits.memory > MAXIMUM_MEMORY_USAGE) {
-            lightship.shutdown();
+            if (containerResourceUsage.usage.memory / containerResourceSpecification.resources.limits.memory > MAXIMUM_MEMORY_USAGE) {
+              lightship.shutdown();
+            }
           }
         }
       }

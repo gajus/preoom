@@ -21,7 +21,8 @@
   "dependencies": {
     "bytes-iec": "^3.1.0",
     "got": "^9.6.0",
-    "roarr": "^2.14.6"
+    "roarr": "^2.14.6",
+    "serialize-error": "^5.0.0"
   },
   "description": "Retrieves & observes Kubernetes Pod resource (CPU, memory) utilisation.",
   "devDependencies": {

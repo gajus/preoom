@@ -1,6 +1,9 @@
 // @flow
 
 import {
+  serializeError,
+} from 'serialize-error';
+import {
   getCredentials,
   getPodResourceSpecification,
   getPodResourceUsage as getUnboundPodResourceUsage,
@@ -69,15 +72,25 @@ export default () => {
         const context = await ready;
 
         const podResourceSpecification = context.podResourceSpecification;
-        const podResourceUsage = await getPodResourceUsage();
 
-        log.debug({
-          podResourceSpecification,
-          podResourceUsage,
-        }, 'observed resource usage');
+        try {
+          const podResourceUsage = await getPodResourceUsage();
 
-        // eslint-disable-next-line callback-return
-        callback(podResourceSpecification, podResourceUsage);
+          log.debug({
+            podResourceSpecification,
+            podResourceUsage,
+          }, 'observed resource usage');
+
+          // eslint-disable-next-line callback-return
+          callback(null, podResourceSpecification, podResourceUsage);
+        } catch (error) {
+          log.error({
+            error: serializeError(error),
+          }, 'cannot get resource usage');
+
+          // eslint-disable-next-line callback-return
+          callback(error, null, null);
+        }
 
         timeout = setTimeout(() => {
           tick();
